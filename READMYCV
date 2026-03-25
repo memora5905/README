@@ -1,100 +1,114 @@
 # Hi there, I'm Mauricio Morales 👋
 
-Welcome to my GitHub profile! I'm a **Floor Sales Consultant** passionate about leveraging data and technology to drive business growth. I combine sales expertise with technical skills in data analysis, CRM systems, and business intelligence to create meaningful solutions.
+Welcome to my GitHub profile! I'm a sales professional with 5+ years of experience at CarMax transitioning into data and business analytics. I combine deep sales floor knowledge with hands-on skills in Excel, SQL, Salesforce, and AI to build tools that drive smarter decisions.
+
+---
 
 ## 🚀 About Me
 
-I'm a results-driven sales professional with a passion for data-driven decision making and process optimization. I excel at connecting business challenges with technical solutions, and I'm dedicated to continuous learning and professional development. When I'm not working, you can find me playing and watching sports, diving into a good book, challenging myself with chess and GeoGuessr, or enjoying thought-provoking conversations about films at the theater with friends.
+I spent over five years at CarMax as a Sales Consultant and Floor Sales Coordinator — selling 800+ vehicles, mentoring new associates through training (100% made it), and being selected to pioneer a new coordination role where I managed CRM dashboards, incoming appointment flows, and drove sales production for the team.
+
+Along the way I got obsessed with the data side of the business. I started learning SQL, Excel analytics, and Salesforce administration on my own time, earning certifications and building projects to back it up. Now I'm building toward a career as a **Sales Support Analyst**, **Finance Analyst**, or **Credit Analyst** — roles where my sales instincts and analytical skills work together.
+
+---
 
 ## 💻 Tech Stack
 
-### Core Technologies
-- **Salesforce CRM** - Advanced Platform Expertise
-- **SQL** - Data querying and analysis
-- **Microsoft Excel** - Advanced analytics and modeling
+### Core Skills
+- **Microsoft Excel** — Advanced: SUMIF/COUNTIF/AVERAGEIF, INDEX/MATCH, structured table references, KPI dashboards, cross-sheet formulas
+- **SQL** — Data querying, filtering, aggregation, joins
+- **Salesforce CRM** — Platform usage, CRM management, pipeline reporting
 
-### Currently Learning
-- Claude Computing & AI Agents
-- **Tableau** (interested in learning)
-- **Power BI** (interested in learning)
+### Currently Exploring
+- **Python** — Data analysis and automation
+- **Tableau / Power BI** — Data visualization
+- **AI Agent Configuration** — Built and deployed a personal AI assistant (Remy) using OpenClaw and Claude
 
-### Business Tools
-- Salesforce CRM
-- Data Analysis
-- Business Intelligence Fundamentals
-- Process Optimization
+### Business Skills
+- Sales pipeline management
+- CRM dashboard design and reporting
+- Team onboarding and mentorship
+- Process coordination and optimization
 
-## 📌 Featured Projects & Certifications
+---
 
-### 🎓 Professional Certifications
-- **Salesforce Course** - Completed on Coursera
-  - Advanced CRM configuration and best practices
-  
-- **Data Analysis Course** - Completed on DataCamp
-  - **Tech Stack**: SQL, Python, R
-  - **Focus**: Data querying, analysis, and visualization techniques
+## 📌 Featured Projects
 
-- **Excel Skills showcase
+### 📊 Excel Sales Analytics Workbook
+A multi-sheet sales analysis workbook built to demonstrate real-world Excel skills:
+- Revenue, margin, and shipping analysis across 6 countries and 2 product lines
+- Aggregation using `SUMIF`, `COUNTIF`, `AVERAGEIF` with structured table references
+- `INDEX/MATCH` for dynamic lookups
+- `RANK` for competitive country ordering
+- KPI dashboard pulling cross-sheet data (Total Revenue, Avg Margin, Top Country, Avg Ship Time)
 
+📥 [Download Excel Workbook](https://github.com/memora5905/README/raw/main/Excel%20experience%20example.xlsx)
 
-### 🔨 Projects in Development
-- **Claude AI Agent Setup** - Building intelligent automation solutions
-- **Sales Analytics Dashboards** - Combining Salesforce data with Excel for actionable insights
-- **Data-Driven Sales Tools** - Leveraging SQL and Python for business intelligence
+---
 
-## 📊 GitHub Statistics
+### 🤖 AI Agent Deployment — Remy
+Configured and deployed a personal AI assistant named **Remy** using OpenClaw (Claude-powered). This involved:
+- Setting up and managing an AI agent runtime on a live server
+- Configuring memory, personality, and task automation
+- Integrating with Telegram for real-time communication
+- Using the assistant for career development, analysis projects, and skill building
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=memora5905&show_icons=true&theme=dark)
+This project demonstrates practical AI literacy beyond just prompting — actually deploying and operating an AI system.
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=memora5905&layout=compact&theme=dark)
+---
 
-## 🎯 Current Focus
+### 📓 Data Science Ecosystem — Jupyter Notebook
+Introductory data science notebook covering Python fundamentals, data libraries, and the broader ecosystem of tools used in data analysis.
 
-- 🤖 Setting up Claude AI agents for business automation
-- 📊 Building data analysis projects using SQL and Python
-- 📈 Exploring Tableau and Power BI for advanced visualization
-- 🎓 Expanding technical skillset while maintaining sales expertise
+🔗 [View Notebook](https://github.com/memora5905/Jupyter-Notebook-FN1)
+
+---
 
 ## 🏆 Professional Achievements
 
-- **President's Club** - Recognized for exceptional sales performance
-- **Director's Club** - Top tier sales achievement
-- **Sales Floor Coordinator** - Chosen to lead and establish new program (2 years tenure)
-- Successfully managed team initiatives and drove organizational growth
-- Proven track record of exceeding targets and leading by example
+- **800+ vehicles sold** over 5+ years at CarMax
+- **President's Club** — Recognized for exceptional sales performance
+- **Director's Club** — Top-tier sales achievement
+- **Floor Sales Coordinator** — Selected to pioneer a new role; managed CRM dashboards, appointment flow, and drove revenue for the team (2 years)
+- **Mentored new associates** — 100% completion rate through training program, all hit their bonus targets
+
+---
+
+## 🎓 Certifications
+
+- **Salesforce** — Coursera (CRM configuration and best practices)
+- **Data Analysis** — DataCamp (SQL, Python, R — querying, analysis, visualization)
+
+---
+
+## 📊 GitHub Stats
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=memora5905&show_icons=true&theme=dark)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=memora5905&layout=compact&theme=dark)
+
+---
 
 ## 🤝 Connect With Me
 
-- **LinkedIn**: [Mauricio Morales](https://www.linkedin.com/in/mauricio-morales-1759a3231?utm_source=share_via&utm_content=profile&utm_medium=member_ios)
+- **LinkedIn**: [Mauricio Morales](https://www.linkedin.com/in/mauricio-morales-1759a3231)
 - **GitHub**: [@memora5905](https://github.com/memora5905)
-- **Email**: Feel free to reach out!
 
-## 💡 What I'm Looking For
+---
 
-I'm always interested in:
-- 📊 Collaborating on data analysis and business intelligence projects
-- 🔄 Building Salesforce automation and integration solutions
-- 🤖 Exploring AI and machine learning applications in sales
-- 📚 Contributing to projects that bridge sales and technology
-- 🎯 Learning from talented developers and data professionals
-- 🤝 Helping others optimize their sales processes with technology
+## 🎯 What I'm Looking For
 
-## 🎬 Fun Facts
+- Sales Support Analyst, Finance Analyst, or Credit Analyst roles
+- Projects combining sales domain knowledge with data analysis
+- Collaborations on business intelligence, CRM analytics, or predictive modeling
 
-Beyond my professional pursuits, I'm passionate about:
-- ⚽ **Sports** - Both playing and following the game
-- 📖 **Reading** - Always exploring new books and ideas
-- ♟️ **Chess & GeoGuessr** - Love strategic thinking and geographical challenges
-- 🎭 **Theater & Film** - Enjoying cinema and engaging in meaningful post-movie discussions with friends
+---
+
+## 🎬 Outside of Work
+
+⚽ Sports (playing + watching) | ♟️ Chess & GeoGuessr | 📖 Reading | 🎭 Film & theater
 
 ---
 
 <div align="center">
-  
-  **Thank you for visiting my profile!** 🙌
-  
-  Feel free to reach out if you'd like to collaborate, discuss sales technology, or just chat about your favorite films!
-  
-  ⭐ If you find my work interesting, consider starring my repositories!
-  
+  <strong>Thanks for stopping by!</strong> Feel free to reach out — always open to connecting with people who love data, sales, or both.
 </div>
