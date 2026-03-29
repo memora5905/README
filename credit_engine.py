@@ -327,18 +327,17 @@ def manual_review(
     vehicle_value,
     vehicle_year,
     term_months=60,
-    # Manual review context factors
+    # Manual review context factors (must be verifiable within 15 min)
     months_at_job=None,
     previous_repo=False,
     savings_balance=None,
     income_type="W2",          # W2 / Self-Employed / Contract
-    explanation_letter=False,  # Did applicant provide explanation for derogatory marks?
     co_applicant_score=None,
 ):
     """
-    Manual review tier — for borderline applications the algorithm flags
-    but can't definitively approve or decline.
-    Returns a recommendation with analyst notes.
+    Manual review tier — for borderline applications the algorithm flags.
+    Auto loans are decided in ~15 minutes. No explanation letters.
+    Analyst evaluates: employment stability, income type, LTV, DTI, prior repo, co-applicant.
     """
     base = analyze_application(
         applicant_name, credit_score, annual_income, existing_monthly_debt,
@@ -366,9 +365,7 @@ def manual_review(
     elif months_at_job and months_at_job >= 12:
         strengths.append(f"Employment: {months_at_job} months — adequate but borderline")
     if savings_balance and savings_balance >= loan_amount_requested * 0.20:
-        strengths.append(f"Savings of ${savings_balance:,.0f} shows financial reserves")
-    if explanation_letter:
-        strengths.append("Applicant provided explanation letter for derogatory marks")
+        strengths.append(f"Savings of ${savings_balance:,.0f} on file — shows reserves")
     if co_applicant_score and co_applicant_score >= 680:
         strengths.append(f"Co-applicant score {co_applicant_score} significantly strengthens file")
     if income_type == "W2":
@@ -426,14 +423,14 @@ def manual_review(
     for c in concerns:
         print(f"     - {c}")
 
-    print(f"\n  📋 ANALYST CHECKLIST")
+    print(f"\n  📋 ANALYST CHECKLIST  (15-min turnaround)")
     checklist = [
-        ("Pay stubs / VOE verified",        True),
-        ("Bank statements reviewed",         savings_balance is not None),
+        ("Pay stubs / VOE pulled",           True),
+        ("Credit report reviewed",           True),
         ("Previous repo confirmed",          previous_repo),
-        ("Explanation letter received",      explanation_letter),
-        ("Co-applicant evaluated",           co_applicant_score is not None),
-        ("Employment history verified",      months_at_job is not None),
+        ("Co-applicant on application",      co_applicant_score is not None),
+        ("Employment duration verified",     months_at_job is not None),
+        ("Income type confirmed",            True),
     ]
     for item, done in checklist:
         mark = "☑" if done else "☐"
@@ -454,7 +451,7 @@ def manual_review(
         credit_score=588, annual_income=62000, existing_monthly_debt=620,
         loan_amount_requested=24000, vehicle_value=22000, vehicle_year=2020,
         term_months=60, months_at_job=18, previous_repo=False,
-        savings_balance=4500, income_type="W2", explanation_letter=True,
+        savings_balance=4500, income_type="W2",
     )
 
     # Prior repossession — automatic decline regardless of other factors
@@ -463,7 +460,7 @@ def manual_review(
         credit_score=575, annual_income=44000, existing_monthly_debt=480,
         loan_amount_requested=18000, vehicle_value=17000, vehicle_year=2019,
         term_months=60, months_at_job=8, previous_repo=True,
-        savings_balance=800, income_type="W2", explanation_letter=False,
+        savings_balance=800, income_type="W2",
     )
 
     # Self-employed with strong co-applicant and savings
@@ -473,5 +470,5 @@ def manual_review(
         loan_amount_requested=35000, vehicle_value=33000, vehicle_year=2022,
         term_months=72, months_at_job=36, previous_repo=False,
         savings_balance=22000, income_type="Self-Employed",
-        explanation_letter=True, co_applicant_score=705,
+        co_applicant_score=705,
     )
