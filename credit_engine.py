@@ -314,3 +314,164 @@ if __name__ == "__main__":
     for s in scenarios:
         result = analyze_application(**s)
         print_credit_memo(result)
+
+
+# ── MANUAL REVIEW ENGINE ─────────────────────────────────────────────────────
+
+def manual_review(
+    applicant_name,
+    credit_score,
+    annual_income,
+    existing_monthly_debt,
+    loan_amount_requested,
+    vehicle_value,
+    vehicle_year,
+    term_months=60,
+    # Manual review context factors
+    months_at_job=None,
+    previous_repo=False,
+    savings_balance=None,
+    income_type="W2",          # W2 / Self-Employed / Contract
+    explanation_letter=False,  # Did applicant provide explanation for derogatory marks?
+    co_applicant_score=None,
+):
+    """
+    Manual review tier — for borderline applications the algorithm flags
+    but can't definitively approve or decline.
+    Returns a recommendation with analyst notes.
+    """
+    base = analyze_application(
+        applicant_name, credit_score, annual_income, existing_monthly_debt,
+        loan_amount_requested, vehicle_value, vehicle_year, term_months
+    )
+
+    if base["decision"] == "APPROVE":
+        return base  # Clean file — no manual needed
+
+    gross_monthly = annual_income / 12
+    tier = base.get("credit_tier", "Unknown")
+    ltv = loan_amount_requested / vehicle_value
+    proposed_pmt = base.get("proposed_payment", 0)
+    dti = base.get("back_end_dti", 0)
+
+    strengths = []
+    concerns = []
+    recommendation = None
+
+    # ── Evaluate strengths
+    if credit_score >= 600:
+        strengths.append(f"Score {credit_score} is within workable range for manual")
+    if months_at_job and months_at_job >= 24:
+        strengths.append(f"Stable employment: {months_at_job} months at current job")
+    elif months_at_job and months_at_job >= 12:
+        strengths.append(f"Employment: {months_at_job} months — adequate but borderline")
+    if savings_balance and savings_balance >= loan_amount_requested * 0.20:
+        strengths.append(f"Savings of ${savings_balance:,.0f} shows financial reserves")
+    if explanation_letter:
+        strengths.append("Applicant provided explanation letter for derogatory marks")
+    if co_applicant_score and co_applicant_score >= 680:
+        strengths.append(f"Co-applicant score {co_applicant_score} significantly strengthens file")
+    if income_type == "W2":
+        strengths.append("W2 income — verifiable and stable")
+    if ltv <= 1.10:
+        strengths.append(f"LTV {ltv:.1%} is manageable")
+
+    # ── Evaluate concerns
+    if credit_score < 570:
+        concerns.append(f"Score {credit_score} is low — limited lender options")
+    if previous_repo:
+        concerns.append("Previous repossession on file — major negative factor")
+    if dti and dti > 0.50:
+        concerns.append(f"DTI {dti:.1%} is significantly elevated")
+    elif dti and dti > 0.43:
+        concerns.append(f"DTI {dti:.1%} is borderline — tight but potentially workable")
+    if income_type == "Self-Employed":
+        concerns.append("Self-employed income — requires 2 years tax returns for verification")
+    if months_at_job and months_at_job < 6:
+        concerns.append(f"New employment: only {months_at_job} months — high instability risk")
+    if ltv > 1.20:
+        concerns.append(f"LTV {ltv:.1%} is high — significant collateral risk")
+
+    # ── Build recommendation
+    score_card = len(strengths) - len(concerns) * 1.5  # concerns weigh more
+
+    if previous_repo:
+        recommendation = "DECLINE — Prior repo is disqualifying for most lenders"
+    elif credit_score < 540:
+        recommendation = "DECLINE — Score too low for manual override"
+    elif score_card >= 2 and not previous_repo:
+        recommendation = "APPROVE WITH CONDITIONS — Strengths outweigh concerns"
+    elif score_card >= 0:
+        recommendation = "COUNTER OFFER — Reduce loan amount to lower payment and LTV"
+    else:
+        recommendation = "DECLINE — Too many unresolved risk factors"
+
+    line = "=" * 65
+    print(f"\n{line}")
+    print(f"  MANUAL REVIEW MEMO — ANALYST DECISION REQUIRED")
+    print(f"  Date: {base['date']}")
+    print(f"{line}")
+    print(f"\n  APPLICANT:     {applicant_name}")
+    print(f"  Credit Score:  {credit_score}  ({tier})")
+    print(f"  Income:        ${annual_income:,.0f}/yr  (${gross_monthly:,.0f}/mo) [{income_type}]")
+    print(f"  Loan Request:  ${loan_amount_requested:,.0f}  |  Vehicle: ${vehicle_value:,.0f}  |  LTV: {ltv:.1%}")
+    print(f"  Term:          {term_months}mo  |  Rate:  {base.get('rate', 0)*100:.2f}% APR  |  Payment: ${proposed_pmt:,.2f}/mo")
+    print(f"  Back-End DTI:  {dti:.1%}" if dti else "")
+
+    print(f"\n  ✅ STRENGTHS ({len(strengths)})")
+    for s in strengths:
+        print(f"     + {s}")
+
+    print(f"\n  ⚠️  CONCERNS ({len(concerns)})")
+    for c in concerns:
+        print(f"     - {c}")
+
+    print(f"\n  📋 ANALYST CHECKLIST")
+    checklist = [
+        ("Pay stubs / VOE verified",        True),
+        ("Bank statements reviewed",         savings_balance is not None),
+        ("Previous repo confirmed",          previous_repo),
+        ("Explanation letter received",      explanation_letter),
+        ("Co-applicant evaluated",           co_applicant_score is not None),
+        ("Employment history verified",      months_at_job is not None),
+    ]
+    for item, done in checklist:
+        mark = "☑" if done else "☐"
+        print(f"     {mark} {item}")
+
+    print(f"\n  🏦 ANALYST RECOMMENDATION: {recommendation}")
+    print(f"\n{line}\n")
+
+
+    # ── Manual Review Scenarios
+    print("\n\n" + "="*65)
+    print("  MANUAL REVIEW SCENARIOS")
+    print("="*65)
+
+    # Borderline subprime — strengths outweigh concerns
+    manual_review(
+        applicant_name="David Chen",
+        credit_score=588, annual_income=62000, existing_monthly_debt=620,
+        loan_amount_requested=24000, vehicle_value=22000, vehicle_year=2020,
+        term_months=60, months_at_job=18, previous_repo=False,
+        savings_balance=4500, income_type="W2", explanation_letter=True,
+    )
+
+    # Prior repossession — automatic decline regardless of other factors
+    manual_review(
+        applicant_name="Marcus Thompson",
+        credit_score=575, annual_income=44000, existing_monthly_debt=480,
+        loan_amount_requested=18000, vehicle_value=17000, vehicle_year=2019,
+        term_months=60, months_at_job=8, previous_repo=True,
+        savings_balance=800, income_type="W2", explanation_letter=False,
+    )
+
+    # Self-employed with strong co-applicant and savings
+    manual_review(
+        applicant_name="Sofia Mendez",
+        credit_score=612, annual_income=88000, existing_monthly_debt=750,
+        loan_amount_requested=35000, vehicle_value=33000, vehicle_year=2022,
+        term_months=72, months_at_job=36, previous_repo=False,
+        savings_balance=22000, income_type="Self-Employed",
+        explanation_letter=True, co_applicant_score=705,
+    )
